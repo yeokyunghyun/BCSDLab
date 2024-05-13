@@ -36,8 +36,8 @@ public class ArticleController {
     public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
         Article findedArticle = articleService.findById(id);
         if(findedArticle == null) return ResponseEntity.notFound().build();
-        findedArticle.setTitle(findedArticle.getTitle());
-        findedArticle.setContent(findedArticle.getContent());
+        findedArticle.setTitle(article.getTitle());
+        findedArticle.setContent(article.getContent());
         articleService.save(id, findedArticle);
         return ResponseEntity.ok(findedArticle);
     }
