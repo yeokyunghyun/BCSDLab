@@ -25,4 +25,9 @@ public class ArticleService {
     public void deleteById(Long id) {
         articles.remove(id);
     }
+
+    public void update(Article article, Article findedArticle) {
+        findedArticle.setTitle(article.getTitle());
+        findedArticle.setContent(article.getContent());
+    }
 }
