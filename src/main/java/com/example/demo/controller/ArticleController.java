@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/article")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -17,13 +18,13 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @PostMapping("/article")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Article> createArticle(@RequestBody Article article) {
         articleService.save(article);
         return ResponseEntity.ok(article);
     }
 
-    @GetMapping("/article/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
         Article article = articleService.findById(id);
         if(article == null) {
@@ -32,7 +33,7 @@ public class ArticleController {
         return ResponseEntity.ok(article);
     }
 
-    @PutMapping("/article/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
         Article findedArticle = articleService.findById(id);
         if(findedArticle == null) return ResponseEntity.notFound().build();
@@ -42,7 +43,7 @@ public class ArticleController {
         return ResponseEntity.ok(findedArticle);
     }
 
-    @DeleteMapping("/article/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Article> deleteArticleById(@PathVariable Long id) {
         articleService.deleteById(id);
         return ResponseEntity.noContent().build();
