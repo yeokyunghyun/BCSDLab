@@ -3,7 +3,9 @@ package com.example.demo.service;
 import com.example.demo.domain.Article;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ArticleService {
@@ -21,7 +23,14 @@ public class ArticleService {
     public Article findById(Long id) {
         return articles.get(id);
     }
-
+    public List<Article> getArticles() {
+        // article들 모음
+        List<Article> articleList = new ArrayList<>();
+        for(long id : articles.keySet()) {
+            articleList.add(articles.get(id));
+        }
+        return articleList;
+    }
     public void deleteById(Long id) {
         articles.remove(id);
     }

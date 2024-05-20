@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Controller
-@RequestMapping("/article")
+@RequestMapping("/articles")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -23,7 +26,11 @@ public class ArticleController {
         articleService.save(article);
         return ResponseEntity.ok(article);
     }
-
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public List<Article> getArticles() {
+        return articleService.getArticles();
+    }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
         Article article = articleService.findById(id);
