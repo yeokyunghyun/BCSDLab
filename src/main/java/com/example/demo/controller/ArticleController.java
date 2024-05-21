@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Article;
+import com.example.demo.dto.ArticleDto;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -28,8 +30,8 @@ public class ArticleController {
     }
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Article> getArticles() {
-        return articleService.getArticles();
+    public List<ArticleDto> getArticlesWithMemberName() {
+        return articleService.getArticleDto();
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
@@ -39,6 +41,7 @@ public class ArticleController {
         }
         return ResponseEntity.ok(article);
     }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody Article article) {
