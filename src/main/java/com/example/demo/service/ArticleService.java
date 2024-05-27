@@ -1,58 +1,72 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.response.ArticleResponse;
+import com.example.demo.controller.dto.request.ArticleCreateRequest;
+import com.example.demo.controller.dto.request.ArticleUpdateRequest;
 import com.example.demo.domain.Article;
-import com.example.demo.dto.ArticleDto;
+import com.example.demo.domain.Board;
+import com.example.demo.domain.Member;
 import com.example.demo.repository.ArticleRepository;
+import com.example.demo.repository.BoardRepository;
+import com.example.demo.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final MemberService memberService;
-    private long id = 1;
+    private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
-    public ArticleService(MemberService memberService, ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, MemberRepository memberRepository, BoardRepository boardRepository) {
         this.articleRepository = articleRepository;
-        this.memberService = memberService;
+        this.memberRepository = memberRepository;
+        this.boardRepository = boardRepository;
+    }
+    public List<ArticleResponse> getAll() {
+        List<Article> articles = articleRepository.findAll();
+        return articles.stream()
+                .map(article -> {
+                    Member member = memberRepository.findById(article.getMemberId());
+                    Board board = boardRepository.findById(article.getBoardId());
+                    return ArticleResponse.of(article, member, board);
+                }).toList();
     }
 
-    public void save(Article article) {
-        articleRepository.save(article);
+    public ArticleResponse getById(Long id) {
+        Article article = articleRepository.findById(id);
+        Member member = memberRepository.findById(article.getMemberId());
+        Board board = boardRepository.findById(article.getBoardId());
+        return ArticleResponse.of(article, member, board);
     }
 
-    public void save(Long id, Article article) {
-        articleRepository.save(id, article);
-    }
-    public Article findById(Long id) {
-        return articleRepository.get(id);
-    }
-    public void deleteById(Long id) {
-        articleRepository.remove(id);
-    }
-
-    public void update(Article article, Article findedArticle) {
-        findedArticle.setTitle(article.getTitle());
-        findedArticle.setContent(article.getContent());
+    public ArticleResponse create(ArticleCreateRequest request) {
+        Article article = new Article(
+                request.memberId(),
+                request.boardId(),
+                request.title(),
+                request.content()
+        );
+        Article savedArticle = articleRepository.insert(article);
+        Member member = memberRepository.findById(article.getMemberId());
+        Board board = boardRepository.findById(article.getBoardId());
+        return ArticleResponse.of(article, member, board);
     }
 
-    public List<Article> getArticles() {
-        // article들 모음
-        return articleRepository.getArticles();
+    public ArticleResponse update(Long id, ArticleUpdateRequest request) {
+        Article article = articleRepository.findById(id);
+        article.update(request.boardId(), request.title(), request.content());
+        Article updatedArticle = articleRepository.update(id, article);
+
+        Member member = memberRepository.findById(updatedArticle.getMemberId());
+        Board board = boardRepository.findById(updatedArticle.getBoardId());
+
+        return ArticleResponse.of(article, member, board);
     }
-    public List<ArticleDto> getArticleDto() {
-        List<Article> articles = articleRepository.getArticles();
-        List<ArticleDto> articleDtos = new ArrayList<>();
 
-        for(Article article : articles) {
-            String memberName = memberService.getMemberById(article.getMemberId()).getName();
-
-            articleDtos.add(new ArticleDto(article.getTitle(), memberName, article.getPublishDate(), article.getContent()));
-        }
-        return articleDtos;
+    public void delete(Long id) {
+        articleRepository.deleteById(id);
     }
 }

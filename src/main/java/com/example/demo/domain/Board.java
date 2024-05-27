@@ -1,20 +1,22 @@
 package com.example.demo.domain;
 
 public class Board {
-    private int id;
-    private int name;
+    Long id;
+    String name;
 
-    public Board() {}
-    public Board(int id, int name) {
-        this.id = id;
+    public Board(String name) {
         this.name = name;
     }
 
-    public int getId() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 }

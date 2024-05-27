@@ -1,6 +1,9 @@
 package com.example.demo.domain;
 
+import org.springframework.cglib.core.Local;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Article {
     private Long id;
@@ -9,39 +12,55 @@ public class Article {
 
     private String title;
     private String content;
-    private LocalDate publishDate;
-    private LocalDate modifyDate;
+    private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
 
-    public Article() {}
-
-    public Article(String title, String content, LocalDate publishDate, LocalDate modifyDate) {
+    public Article(Long memberId, Long boardId, String title, String content) {
+        this.memberId = memberId;
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
-        this.publishDate = publishDate;
+        this.createDate = LocalDateTime.now();
+    }
+
+    public void update(Long boardId, String title, String content) {
+        this.boardId = boardId;
+        this.title = title;
+        this.content = content;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setModifyDate(LocalDateTime modifyDate) {
         this.modifyDate = modifyDate;
     }
 
-    public String getTitle() {
-        return title;
-    }
-    public String getContent() {
-        return content;
-    }
-    public LocalDate getPublishDate() {
-        return LocalDate.now();
-    }
-    public LocalDate getModifyDate() {
-        return modifyDate;
+    public Long getId() {
+        return id;
     }
 
     public Long getMemberId() {
         return memberId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Long getBoardId() {
+        return boardId;
     }
-    public void setContent(String content) {
-        this.content = content;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public LocalDateTime getModifyDate() {
+        return modifyDate;
     }
 }

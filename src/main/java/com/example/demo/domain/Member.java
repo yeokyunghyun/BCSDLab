@@ -4,19 +4,32 @@ package com.example.demo.domain;
 public class Member {
     private Long id;
     private String name;
-    private int age;
+    private String email;
+    private String password;
 
-    public Member() {}
-    public Member(String name, int age) {
+    public Member(String name, String email, String password) {
         this.name = name;
-        this.age = age;
+        this.email = email;
+        this.password = password;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAge() {
-        return age;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

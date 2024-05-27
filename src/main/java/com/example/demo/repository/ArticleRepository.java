@@ -1,40 +1,18 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Article;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-@Repository
-public class ArticleRepository {
+public interface ArticleRepository {
 
-    private long id = 1;
-    private HashMap<Long, Article> articles = new HashMap<>();
+    public List<Article> findAll();
 
-    public void save(Article article) {
-        articles.put(id++, article);
-    }
+    public Article findById(Long id);
 
-    public void save(Long id, Article article) {
-        articles.put(id, article);
-    }
+    Article insert(Article request);
 
+    Article update(Long id, Article article);
 
-    public Article get(Long id) {
-        return articles.get(id);
-    }
-
-    public List<Article> getArticles() {
-        List<Article> articleList = new ArrayList<>();
-        for(long id : articles.keySet()) {
-            articleList.add(articles.get(id));
-        }
-        return articleList;
-    }
-
-    public void remove(Long id) {
-        articles.remove(id);
-    }
+    void deleteById(Long id);
 }
