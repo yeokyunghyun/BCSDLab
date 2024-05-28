@@ -1,8 +1,5 @@
 package com.example.demo.domain;
 
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Article {

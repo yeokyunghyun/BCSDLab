@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class ArticleRepositoryMemory implements ArticleRepository{
-
     private static final HashMap<Long, Article> articles = new HashMap<>();
     private static final AtomicLong autoIncrement = new AtomicLong(1);
     public List<Article> findAll() {

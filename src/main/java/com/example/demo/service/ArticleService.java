@@ -25,9 +25,20 @@ public class ArticleService {
         this.memberRepository = memberRepository;
         this.boardRepository = boardRepository;
     }
+
     public List<ArticleResponse> getAll() {
         List<Article> articles = articleRepository.findAll();
         return articles.stream()
+                .map(article -> {
+                    Member member = memberRepository.findById(article.getMemberId());
+                    Board board = boardRepository.findById(article.getBoardId());
+                    return ArticleResponse.of(article, member, board);
+                }).toList();
+    }
+    public List<ArticleResponse> getAllByBoardId(Long boardId) {
+        List<Article> articles = articleRepository.findAll();
+        return articles.stream().
+                filter(article -> article.getBoardId() == boardId)
                 .map(article -> {
                     Member member = memberRepository.findById(article.getMemberId());
                     Board board = boardRepository.findById(article.getBoardId());
@@ -69,4 +80,5 @@ public class ArticleService {
     public void delete(Long id) {
         articleRepository.deleteById(id);
     }
+
 }

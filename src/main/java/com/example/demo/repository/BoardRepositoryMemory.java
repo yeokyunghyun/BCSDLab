@@ -14,6 +14,7 @@ public class BoardRepositoryMemory implements BoardRepository{
 
     static {
         boards.put(autoIncrement.getAndIncrement(), new Board("자유게시판"));
+        boards.put(autoIncrement.getAndIncrement(), new Board("일반게시판"));
     }
     @Override
     public Board findById(Long id) {

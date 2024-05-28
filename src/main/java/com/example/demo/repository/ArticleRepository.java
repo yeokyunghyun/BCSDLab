@@ -10,7 +10,7 @@ public interface ArticleRepository {
 
     public Article findById(Long id);
 
-    Article insert(Article request);
+    Article insert(Article article);
 
     Article update(Long id, Article article);
 

@@ -14,6 +14,7 @@ public class MemberRepositoryMemory implements MemberRepository {
 
     static {
         members.put(autoIncrement.getAndIncrement(), new Member("여경현", "durudgus0806@naver.com", "du3886131"));
+        members.put(autoIncrement.getAndIncrement(), new Member("여경현2", "durudgus0806@naver.com", "du3886131"));
     }
     @Override
     public Member findById(Long id) {

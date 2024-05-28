@@ -20,8 +20,13 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> getArticles() {
-        List<ArticleResponse> response = articleService.getAll();
+    public ResponseEntity<List<ArticleResponse>> getArticles(@RequestParam(value = "boardId", required = false) Long boardId) {
+        List<ArticleResponse> response;
+        if (boardId != null) {
+            response = articleService.getAllByBoardId(boardId);
+        } else {
+            response = articleService.getAll();
+        }
         return ResponseEntity.ok(response);
     }
 
