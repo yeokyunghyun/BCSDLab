@@ -1,12 +1,13 @@
 package com.example.demo.repository;
 
+import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Board;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
 public class BoardRepositoryMemory implements BoardRepository{
 
     private static final HashMap<Long, Board> boards = new HashMap<>();
@@ -19,5 +20,25 @@ public class BoardRepositoryMemory implements BoardRepository{
     @Override
     public Board findById(Long id) {
         return boards.getOrDefault(id, null);
+    }
+
+    @Override
+    public Board insert(Board board) {
+        return null;
+    }
+
+    @Override
+    public List<Board> findAll() {
+        return null;
+    }
+
+    @Override
+    public Board update(Board board) {
+        return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
     }
 }

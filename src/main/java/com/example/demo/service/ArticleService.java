@@ -10,6 +10,7 @@ import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class ArticleService {
         return ArticleResponse.of(article, member, board);
     }
 
+    @Transactional
     public ArticleResponse create(ArticleCreateRequest request) {
         Article article = new Article(
                 request.memberId(),
@@ -66,6 +68,7 @@ public class ArticleService {
         return ArticleResponse.of(article, member, board);
     }
 
+    @Transactional
     public ArticleResponse update(Long id, ArticleUpdateRequest request) {
         Article article = articleRepository.findById(id);
         article.update(request.boardId(), request.title(), request.content());
@@ -77,6 +80,7 @@ public class ArticleService {
         return ArticleResponse.of(article, member, board);
     }
 
+    @Transactional
     public void delete(Long id) {
         articleRepository.deleteById(id);
     }
