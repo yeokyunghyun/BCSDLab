@@ -13,6 +13,12 @@ public class Member {
         this.password = password;
     }
 
+    public Member(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -31,5 +37,11 @@ public class Member {
 
     public String getPassword() {
         return password;
+    }
+
+    public void update(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 }

@@ -4,6 +4,7 @@ import com.example.demo.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
@@ -19,6 +20,26 @@ public class MemberRepositoryMemory implements MemberRepository {
     @Override
     public Member findById(Long id) {
         return members.getOrDefault(id, null);
+    }
+
+    @Override
+    public Member insert(Member member) {
+        return null;
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return null;
+    }
+
+    @Override
+    public Member update(Member member) {
+        return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
     }
 
 

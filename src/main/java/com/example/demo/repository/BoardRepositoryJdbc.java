@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.controller.dto.response.BoardResponse;
 import com.example.demo.domain.Board;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
