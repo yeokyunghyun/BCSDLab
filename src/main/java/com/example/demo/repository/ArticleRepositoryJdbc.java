@@ -57,7 +57,6 @@ public class ArticleRepositoryJdbc implements ArticleRepository {
     public Article insert(Article article) {
         String sql = "INSERT INTO article (member_id, board_id, title, content)" + "VALUES (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, article.getMemberId());
